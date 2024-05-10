@@ -1,13 +1,24 @@
 import express from 'express'
+import { createPreview, getArticles, publishArticle } from '../controllers/article-controller'
+import { validate } from '../middlewares'
+import joi from 'joi'
 
 const articleRouter = express.Router()
 
-articleRouter.get('/',(req,res)=>{
-    res.send('okay')
-})
 
-articleRouter.post('/add')
+articleRouter.post('/',validate({
+    title:joi.string().required(),
+    coverImage:joi.string().allow(''),
+    content:joi.string().allow(''),
+    tags:joi.string().allow(''),
+    state:joi.string().allow('draft','publish')
+}),publishArticle)
 
+articleRouter.post('/preview',validate({
+    content:joi.string()
+}),createPreview)
+articleRouter.get('/',getArticles) // return articles feed
+articleRouter.get('/:username/:slug') // /api/articles/:username/:slug
 
 
 export default articleRouter

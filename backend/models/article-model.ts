@@ -1,10 +1,14 @@
 import mongoose from 'mongoose'
 
 const articleSchema = new mongoose.Schema({
+    uId:{type:mongoose.Types.ObjectId,ref:'user'},
     title:{type:String,required:true},
     coverImage:{type:String},
     content:{type:String},
-    contentImage:{type:[String],default:[]}
+    tags:{type:[],default:[]},
+    slug:{type:String,required:true},
+    state:{type:String,default:'draft',enum:['publish','draft']}
+    // contentImage:{type:[String],default:[]}
 },{timestamps:true})
 
 
