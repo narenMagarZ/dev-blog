@@ -17,10 +17,24 @@
 }
 
 body {
+  background-color: #f5f5f5;
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
+}
+
+
+.test:focus-within  {
+  border:2px solid red;
+}
+
+h1{
+
+}
+
+h2{
+  
 }

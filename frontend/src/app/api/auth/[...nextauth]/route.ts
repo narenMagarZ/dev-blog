@@ -2,13 +2,14 @@ import GithubProvider from 'next-auth/providers/github'
 import GoogleProvider from 'next-auth/providers/google'
 import NextAuth from 'next-auth'
 import axios from 'axios'
+import {setCookie} from 'cookies-next'
 
 const print =console.log
 const handler = NextAuth({
     providers:[
         GoogleProvider({
             clientId:'278447342299-elof1pacqjt70edf0nalsnpgeb78e1s2.apps.googleusercontent.com',
-            clientSecret:'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'
+            clientSecret:'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',
         }),
         GithubProvider({
             clientId:'Ov23liMyIGFgLYnVLbCx',
@@ -24,6 +25,8 @@ const handler = NextAuth({
                 return axios.post('http://localhost:5000/api/user/enter',
                 {name,email,image,provider}).then(res=>{
                     print(res.data)
+                    // on receive token, store it as cookie
+                    setCookie('token',res.data.token)
                     return true
                 }).catch(error=>{
                     console.error(error)

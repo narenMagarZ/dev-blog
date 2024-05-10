@@ -4,7 +4,13 @@
 export default function Dashboard(){
     return(
         <div>
-            dashboard
+            <div>
+                <h2>Dashboard</h2>
+                <div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
         </div>
     )
 }
