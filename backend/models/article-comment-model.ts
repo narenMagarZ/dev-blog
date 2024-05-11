@@ -8,5 +8,5 @@ const articleCommentSchema = new mongoose.Schema({
     replyTo:{type:mongoose.Types.ObjectId,ref:'comment'},
 },{timestamps:true})
 
-const AComment = mongoose.model('comment',articleCommentSchema)
-export default AComment
+const Comment = mongoose.model('comment',articleCommentSchema)
+export default Comment

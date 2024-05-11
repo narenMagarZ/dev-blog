@@ -6,7 +6,8 @@ import {
     getPosts,
     getProfile,
     updateProfile,
-    enter} from '../controllers/user-controller'
+    enter,
+    addOrRemoveArticleFromReadingList} from '../controllers/user-controller'
 import {validate} from '../middlewares'
 import joi from 'joi'
 const userRouter = express.Router()
@@ -19,6 +20,14 @@ userRouter.post('/enter',validate({
     image:joi.string().required(),
     provider:joi.string().valid('github','google')
 }),enter)
+
+userRouter.post('/readinglist',validate({
+    aId:joi.string().required(),
+    event:joi.string().required().allow('remove','add')
+}),addOrRemoveArticleFromReadingList)
+
+
+
 userRouter.get('/posts',getPosts)
 userRouter.post('/like',likePost)
 userRouter.post('/comment',commentOnPost)

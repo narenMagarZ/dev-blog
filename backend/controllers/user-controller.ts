@@ -1,21 +1,24 @@
 import { Request, Response, NextFunction } from "express";
-import { createUser } from "../dal/user-dal";
+import { createUser, updateReadingList } from "../dal/user-dal";
 import dotenv from 'dotenv'
 import AppError from "../app-error";
 import { generateToken } from "../helper";
-
+import {generateFromEmail} from 'unique-username-generator'
 dotenv.config()
 const print = console.log
 
 
+const createUsername=(email:string)=>generateFromEmail(email,4)
 export async function enter(req:Request,res:Response,next:NextFunction){
     const {name,email,image,provider} = req.body
     try{
+        const username = createUsername(email)
         const user = await createUser({
             name,
             email,
             provider,
-            image
+            image,
+            username
         })
         if(user){
             const token = generateToken({email:user.email,id:user.id})
@@ -82,5 +85,19 @@ export async function updateProfile(req:Request,res:Response,next:NextFunction){
     }
     catch(err){
         console.error("Error updating profile:",err)
+    }
+}
+
+export async function addOrRemoveArticleFromReadingList(req:Request,res:Response,next:NextFunction){
+    const {aId,event} = req.body
+    try{
+        // const uId = "663f00419e3d34ccfd17b0ad"
+        const uId = "663f00419e3d34ccfd17b0ad"
+        await updateReadingList(uId,aId,event)
+        return res.send("succeed")
+    }
+    catch(error:any){
+        console.error("Error adding or removing article from reading list:",error)
+        return next(new AppError(error.message,500))
     }
 }

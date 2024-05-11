@@ -6,5 +6,5 @@ const articleLikeSchema = new mongoose.Schema({
     uId:{type:mongoose.Types.ObjectId,required:true,ref:'user'}
 },{timestamps:true})
 
-const ALike = mongoose.model('article-like',articleLikeSchema)
-export default ALike
+const Reaction = mongoose.model('article-like',articleLikeSchema)
+export default Reaction

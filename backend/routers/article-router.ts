@@ -1,5 +1,5 @@
 import express from 'express'
-import { createPreview, getArticles, publishArticle } from '../controllers/article-controller'
+import { createPreview, getArticleFromUsernameAndSlug, getArticles, publishArticle } from '../controllers/article-controller'
 import { validate } from '../middlewares'
 import joi from 'joi'
 
@@ -18,7 +18,6 @@ articleRouter.post('/preview',validate({
     content:joi.string()
 }),createPreview)
 articleRouter.get('/',getArticles) // return articles feed
-articleRouter.get('/:username/:slug') // /api/articles/:username/:slug
-
+articleRouter.get('/:username/:slug',getArticleFromUsernameAndSlug) // /api/articles/:username/:slug
 
 export default articleRouter
