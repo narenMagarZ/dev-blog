@@ -8,7 +8,7 @@ import { LuBold, LuItalic, LuHeading} from "react-icons/lu";
 import { PiLinkSimple } from "react-icons/pi";
 import { FaCode, FaImage } from "react-icons/fa6";
 import { BsCodeSquare } from "react-icons/bs";
-import parser from 'html-react-parser'
+import parser,{htmlToDOM,DOMNode, Element} from 'html-react-parser'
 import { MdOutlineFormatListNumbered,MdOutlineFormatListBulleted } from "react-icons/md";
 const print =console.log
 function fun(endPoint:string,method:string,data:any){
@@ -196,7 +196,8 @@ function EditArticle({
                     tags.map((tag,i)=>(
                         <div 
                         key={i}
-                        className="text-sm flex items-center gap-x-2 border rounded">
+                        style={{minWidth:'max-content'}}
+                        className="text-xs p-1 flex items-center gap-x-2 border rounded">
                             # {tag}
                             <button
                             className="hover:text-red-500"

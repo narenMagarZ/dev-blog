@@ -17,7 +17,8 @@ const handler = NextAuth({
         }),
     ],
     callbacks:{
-        async signIn({user,account}) {
+        async signIn({user,account,profile}) {
+            print(account,profile)
             if(user && account){
                 const {name,email,image} = user
                 const {provider} = account
